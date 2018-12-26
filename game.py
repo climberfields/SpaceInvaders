@@ -32,6 +32,24 @@ player.setheading(90)
 
 playerspeed = 15
 
+# Bullet state
+# Player Bullet
+bullet = turtle.Turtle()
+bullet.color("yellow")
+bullet.shape("triangle")
+bullet.penup()
+bullet.speed(0)
+bullet.setheading(90)
+bullet.shapesize(0.5, 0.5)
+bullet.hideturtle()
+
+bulletspeed = 20
+
+#ready
+bulletstate = "ready"
+#fire
+
+
 # Moving the player
 
 def move_left():
@@ -44,13 +62,29 @@ def move_left():
 def move_right():
     x = player.xcor()
     x += playerspeed
-    if x < +280:
-        x = +280
+    if x > 280:
+        x = 280
     player.setx(x)
 
+
+def fire_bullet():
+    global bullestate
+    if bulletstate == "ready":
+        bullestate = "fire"
+        x = player.xcor()
+        y = player.ycor() +10
+        bullet.setposition(x, y)
+        bullet.showturtle()
+
+#Keyboard Bindings
 turtle.listen()
 turtle.onkey(move_left, "Left")
 turtle.onkey(move_right, "Right")
+turtle.onkey(fire_bullet, "space")
+
+
+
+
 
 
 
@@ -89,5 +123,16 @@ while True:
         enemyspeed *= -1
         enemy.sety(y)
 
-        
+#bullet movement
+    if bulletstate == "fire":
+        y = bullet.ycor()
+        y += bulletspeed
+        bullet.sety(y)
+
+    if bullet.ycor() > 275:
+        bullet.hideturtle()
+        bulletstate = "ready"
+
+
+
 delay = input(" Press enter to finish.")
