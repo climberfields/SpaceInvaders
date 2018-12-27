@@ -22,6 +22,17 @@ for side in range(4):
     border_pen.lt(90)
 border_pen.hideturtle()
 
+#Make Score
+score = 0
+
+#Draw Score
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290, 280)
+scorestring = "Score :%s " %score
+score_pen.write(scorestring, False, align= "left", font=("Arial", 14, "normal"))
 # Make player
 
 player = turtle.Turtle()
@@ -139,17 +150,18 @@ while True:
 
 # Alien back and forth movement
         if enemy.xcor() > 280:
-            y = enemy.ycor()
-            y -= 40
+            for e in enemies:
+                y = enemy.ycor()
+                y -= 40
+                e.sety(y)
             enemyspeed *= -1
-            enemy.sety(y)
-
 
         if enemy.xcor() < -280:
-            y = enemy.ycor()
-            y -= 40
+            for e in enemies:
+                y = enemy.ycor()
+                y -= 40
+                e.sety(y)
             enemyspeed *= -1
-            enemy.sety(y)
     #checking for bullet collision
         if isCollision(bullet, enemy):
             #Reset Bullet
@@ -158,6 +170,11 @@ while True:
             bullet.setposition(0, -400)
             #Reset Enemy
             enemy.setposition(-200, 250)
+            #adding score
+            score += 10
+            scorestring = "Score: %s" %score
+            score_pen.clear()
+            score_pen.write(scorestring, False, align= "left", font=("Arial", 14, "normal"))
 
         if isCollision(enemy, player):
             player.hideturtle()
