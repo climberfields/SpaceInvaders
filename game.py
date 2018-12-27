@@ -1,5 +1,6 @@
 import turtle
 import os
+import math
 
 #Screen set up
 mainscreen = turtle.Screen()
@@ -31,6 +32,33 @@ player.setposition(0, -250)
 player.setheading(90)
 
 playerspeed = 15
+
+# Aliens
+
+enemy = turtle.Turtle()
+enemy.color("red")
+enemy.shape("circle")
+enemy.penup()
+enemy.speed(0)
+enemy.setposition(-200, 250)
+
+enemyspeed = 2
+
+#Number of enemies
+number_of_enemies = 5
+#Create an empty list of enemies
+enemies = []
+
+#Add to the list
+for i in range(number_of_enemies):
+    enemies.append(turtle.Turtle())
+
+for enemy in enemies:
+    enemy.color("red")
+    enemy.shape("circle")
+    enemy.penup()
+    enemy.speed(0)
+    enemy.setposition(-250, 200)
 
 # Bullet state
 # Player Bullet
@@ -68,11 +96,11 @@ def move_right():
 
 
 def fire_bullet():
-    global bullestate
+    global bulletstate
     if bulletstate == "ready":
-        bullestate = "fire"
+        bulletstate = "fire"
         x = player.xcor()
-        y = player.ycor() +10
+        y = player.ycor() + 10
         bullet.setposition(x, y)
         bullet.showturtle()
 
@@ -89,24 +117,6 @@ turtle.listen()
 turtle.onkey(move_left, "Left")
 turtle.onkey(move_right, "Right")
 turtle.onkey(fire_bullet, "space")
-
-
-
-
-
-
-
-# Aliens
-
-enemy = turtle.Turtle()
-enemy.color("red")
-enemy.shape("circle")
-enemy.penup()
-enemy.speed(0)
-enemy.setposition(-200, 250)
-
-enemyspeed = 2
-
 
 
 
