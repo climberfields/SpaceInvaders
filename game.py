@@ -8,6 +8,10 @@ mainscreen = turtle.Screen()
 mainscreen.bgcolor("black")
 mainscreen.title("Space Invaders")
 
+#register shapes
+turtle.register_shape("invader.gif")
+turtle.register_shape("spaceship.gif")
+
 #Draw Border
 
 border_pen = turtle.Turtle()
@@ -37,6 +41,7 @@ score_pen.write(scorestring, False, align= "left", font=("Arial", 14, "normal"))
 
 player = turtle.Turtle()
 player.color("blue")
+# player.shape("spaceship.gif")
 player.shape("triangle")
 player.penup()
 player.speed(0)
@@ -49,6 +54,7 @@ playerspeed = 15
 
 enemy = turtle.Turtle()
 enemy.color("red")
+# enemy.shape("invader.gif")
 enemy.shape("circle")
 enemy.penup()
 enemy.speed(0)
