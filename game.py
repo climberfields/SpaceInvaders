@@ -1,6 +1,7 @@
 import turtle
 import os
 import math
+import random
 
 #Screen set up
 mainscreen = turtle.Screen()
@@ -58,7 +59,11 @@ for enemy in enemies:
     enemy.shape("circle")
     enemy.penup()
     enemy.speed(0)
-    enemy.setposition(-250, 200)
+    x = random.randint(-200, 200)
+    y = random.randint(100, 250)
+    enemy.setposition(x, y)
+
+enemyspeed = 2
 
 # Bullet state
 # Player Bullet
@@ -127,20 +132,38 @@ while True:
     x += enemyspeed
     enemy.setx(x)
 
+    for enemy in enemies:
+        x= enemy.xcor()
+        x += enemyspeed
+        enemy.setx(x)
+
 # Alien back and forth movement
-    if enemy.xcor() > 280:
-        y = enemy.ycor()
-        y -= 40
-        enemyspeed *= -1
-        enemy.sety(y)
+        if enemy.xcor() > 280:
+            y = enemy.ycor()
+            y -= 40
+            enemyspeed *= -1
+            enemy.sety(y)
 
 
-    if enemy.xcor() < -280:
-        y = enemy.ycor()
-        y -= 40
-        enemyspeed *= -1
-        enemy.sety(y)
+        if enemy.xcor() < -280:
+            y = enemy.ycor()
+            y -= 40
+            enemyspeed *= -1
+            enemy.sety(y)
+    #checking for bullet collision
+        if isCollision(bullet, enemy):
+            #Reset Bullet
+            bullet.hideturtle()
+            bulletstate = "ready"
+            bullet.setposition(0, -400)
+            #Reset Enemy
+            enemy.setposition(-200, 250)
 
+        if isCollision(enemy, player):
+            player.hideturtle()
+            enemy.hideturtle()
+            print ("Game Over")
+            break
 #bullet movement
     if bulletstate == "fire":
         y = bullet.ycor()
@@ -151,18 +174,5 @@ while True:
         bullet.hideturtle()
         bulletstate = "ready"
 
-#checking for bullet collision
-    if isCollision(bullet, enemy):
-        #Reset Bullet
-        bullet.hideturtle()
-        bulletstate = "ready"
-        bullet.setposition(0, -400)
-        #Reset Enemy
-        enemy.setposition(-200, 250)
 
-    if isCollision(enemy, player):
-        player.hideturtle()
-        enemy.hideturtle()
-        print ("Game Over")
-        break
 delay = input(" Press enter to finish.")
